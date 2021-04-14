@@ -2,11 +2,14 @@ object macowins {
 
 	const ventas = []
 	
-	
+	method realizarVenta(unaVenta) {
+		ventas.add(unaVenta)
+	}
+		
 	method ventasSegunFecha(unaFecha) =  ventas.filter({unaVenta => unaVenta.tieneFecha(unaFecha)})
 	
 	method ganancias(fecha){		
-		self.ventasSegunFecha(fecha).sum({unaVentaSegunUnaFecha => unaVentaSegunUnaFecha.monto()})
+		self.ventasSegunFecha(fecha).sum({unaVentaSegunUnaFecha => unaVentaSegunUnaFecha.montoVenta()})
 	}
 	
 }
@@ -15,9 +18,8 @@ class Ventas {
 	const fechaVenta
 	const metodoPago
 	const articulosVendidosPorVenta = []
-	method tieneFecha(unaFecha) = unaFecha == fechaVenta
-		
-	method monto() = metodoPago.calcularMonto(self)
+	method tieneFecha(unaFecha) = unaFecha == fechaVenta		
+	method montoVenta() = metodoPago.calcularMonto(self)
 	method montoDeArticulosVentidos() = articulosVendidosPorVenta .sum({artVenta => artVenta.monto()})
     method sumaDeFraccionDeArticulosVentidos(fraccion) = articulosVendidosPorVenta .sum({artVenta => artVenta.fraccionDeMonto(fraccion)})
 	
